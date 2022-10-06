@@ -33,16 +33,20 @@ public class Main {
             product.productName = scanner.nextLine();
             System.out.println("Введите стоимость товара в формате \"рубли,копейки\"");
 
-            while(true)
-                if(scanner.hasNextDouble()) {
-                    product.productPrice  = scanner.nextDouble();
+            while(true) {
+                if (scanner.hasNextDouble()) {
+                    product.productPrice = scanner.nextDouble();
+                        if(product.productPrice > 0) {
+                            scanner.nextLine();
+                            break;
+                        }
+                    System.out.println("Стоимость товара должна быть больше 0. Введите корректное значение");
                     scanner.nextLine();
-                    break;
                 } else {
-                    System.out.println("Вы ввели некорректное значение. Введите числовое значение");
+                    System.out.println("Вы ввели некорректное значение. Введите числовое значение больше нуля");
                     scanner.nextLine();
                 }
-
+            }
             calc.add(product);
             System.out.println("Добавить еще один товар? Введите \"Завершить\" чтобы узнать итоговую стоимость,\nили любой другой символ, чтобы добавить еще товары");
             String userChoice = scanner.nextLine();
@@ -64,24 +68,14 @@ public class Main {
     }
 }
 
-
-
-
-class Product {
-    String productName;
-    double productPrice;
-}
-
-
-
 class Calculator {
     double total = 0;
     String shoppingList = new String();
     String ending = new String();
 
     public void add(Product product) {
-        total = total + product.productPrice;
-        shoppingList = shoppingList + product.productName + " " + product.productPrice + "\n";
+        total += product.productPrice;
+        shoppingList += product.productName + " " + product.productPrice + "\n";
 
     }
 
@@ -111,5 +105,17 @@ class Calculator {
     }
 
 }
+
+class Product {
+    String productName;
+    double productPrice;
+}
+
+
+
+
+
+
+
 
 
